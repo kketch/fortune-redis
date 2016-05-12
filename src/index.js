@@ -8,7 +8,7 @@ import * as utils from './utils';
 /**
  * Redis adapter
  */
-export default function(Adapter) {
+module.exports = Adapter => {
   function RedisAdapter(properties) {
     Adapter.call(this, properties);
   }
@@ -25,7 +25,7 @@ export default function(Adapter) {
     return this.db.quit();
   };
 
-  RedisAdapter.prototype.find = function(type, ids, options) {
+  RedisAdapter.prototype.find = function(type, ids, options, meta) {
     if (ids && !ids.length) {
       return Adapter.prototype.find.call(this);
     }
@@ -49,7 +49,7 @@ export default function(Adapter) {
         .then(records => records.filter(utils.compact))
         .then(records => records.map(transformer))
         .then(records => records.map(record => outputRecord.call(this, type, record)))
-        .then(records => applyOptions(records.length, fields, records, options));
+        .then(records => applyOptions(fields, records, options, meta));
     };
 
     return ids ?

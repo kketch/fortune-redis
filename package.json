@@ -13,7 +13,7 @@
     "build": "mkdirp lib && babel src -d lib",
     "lint": "eslint src test",
     "prepublish": "npm run lint && npm run clean && npm run build",
-    "test": "npm run lint; babel-tape-runner test | tap-dot"
+    "test": "npm run build && node test"
   },
   "dependencies": {
     "co-redis": "^2.0.0",
@@ -28,7 +28,7 @@
     "eslint": "^1.7.3",
     "eslint-config-airbnb": "^0.1.0",
     "fakeredis": "^0.3.4",
-    "fortune": "^1.3.12",
+    "fortune": "^3.5.7",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.4.3",
     "tap-dot": "^1.0.0",
